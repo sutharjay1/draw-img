@@ -59,31 +59,19 @@ Draw-Img is a feature-rich web application designed to facilitate image editing 
 
 ---
 
-## Directory Structure
+## Environment Variables
 
-```plaintext
-C:\Users\JAY SUTHAR\root\repos\projects\draw-img
-├── components.json
-├── eslint.config.js
-├── index.html
-├── package.json
-├── public
-├── README.md
-├── src
-│   ├── app
-│   ├── components
-│   ├── features
-│   ├── hooks
-│   ├── lib
-│   ├── providers
-│   ├── types
-│   ├── index.css
-│   ├── main.tsx
-│   └── vite-env.d.ts
-├── tailwind.config.js
-├── tsconfig.*.json
-├── vercel.json
-└── vite.config.ts
+```env
+VITE_CLOUDINARY_URL=""
+VITE_CLOUDINARY_CLOUD_NAME=""
+VITE_CLOUDINARY_UPLOAD_PRESET=""
+VITE_CLOUDINARY_API_KEY=""
+VITE_CLOUDINARY_API_SECRET=""
+
+VITE_UNSPLASH_URL=""
+VITE_UNSPLASH_ACCESS_KEY=""
+VITE_UNSPLASH_SECRET_KEY=""
+ 
 ```
 
 ---
@@ -158,12 +146,9 @@ This project is licensed under the MIT License. See `LICENSE` for details.
 
 ---
 
-## Submission Requirements
+## Challenge
 
-- **Documentation**: Ensure README.md is comprehensive and includes setup, usage, and contribution guidelines.
-- **Functionality**: Confirm all implemented features work as expected.
-- **Code Quality**: Maintain consistent formatting with Prettier and ESLint.
-- **Testing**: Manually test major features before submission.
+- `react-canvas-draw` had error with getting the dataURI of the drawn stroke read the [repository](https://github.com/embiem/react-canvas-draw) and got to know that it was compiler issue that was solve with the help of `@ts-ignore`
 
 ---
 

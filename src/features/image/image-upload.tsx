@@ -299,7 +299,7 @@ export const BannerUploadDropZone: React.FC<BannerUploadDropZoneProps> = ({
                 <img
                   src={currentImage}
                   alt="card cover"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-over"
                 />
               </div>
             )}

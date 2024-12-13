@@ -126,7 +126,7 @@ export default function Preview() {
                 <img
                   src={image.mask as string}
                   alt="Mask preview"
-                  className="h-auto w-full object-cover"
+                  className="object-over h-auto w-full"
                 />
               </CardContent>
             </Card>

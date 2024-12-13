@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { H2, P } from "@/components/ui/typography";
 import Hint from "@/features/global/hint";
 import { BannerUploadDropZone } from "@/features/image/image-upload";
@@ -20,33 +25,32 @@ export default function Home() {
               Easily upload and edit your images
             </P>
           </CardHeader>
-          <CardContent className="h-fit pt-6">
-            <div className="space-y-6">
-              <BannerUploadDropZone />
-
-              <div className="flex justify-end">
-                <Hint
-                  label={!image.original ? "Upload an image first" : ""}
-                  side="top"
-                >
-                  <Button
-                    variant="outline"
-                    className="group"
-                    asChild
-                    disabled={!image.original}
-                  >
-                    <Link to={!image.original ? "/" : "/edit"}>
-                      Continue to Edit
-                      <ArrowRight
-                        className="ml-2 transition-transform group-hover:translate-x-1"
-                        size={20}
-                      />
-                    </Link>
-                  </Button>
-                </Hint>
-              </div>
-            </div>
+          <CardContent className="h-full space-y-6 px-4 pt-0 md:px-6">
+            <BannerUploadDropZone />
           </CardContent>
+          <CardFooter className="mt-12 flex justify-end">
+            <div>
+              <Hint
+                label={!image.original ? "Upload an image first" : ""}
+                side="top"
+              >
+                <Button
+                  variant="outline"
+                  className="group"
+                  asChild
+                  disabled={!image.original}
+                >
+                  <Link to={!image.original ? "/" : "/edit"}>
+                    Continue to Edit
+                    <ArrowRight
+                      className="ml-2 transition-transform group-hover:translate-x-1"
+                      size={20}
+                    />
+                  </Link>
+                </Button>
+              </Hint>
+            </div>
+          </CardFooter>
         </Card>
       </div>
     </main>

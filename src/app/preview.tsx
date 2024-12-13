@@ -41,107 +41,109 @@ export default function Preview() {
   };
 
   return (
-    <main
-      className={cn(
-        "relative z-10 w-full max-w-4xl flex-col space-y-8 bg-background text-primary",
-        "flex h-screen items-center justify-center",
-      )}
-    >
-      <nav className="w-full px-4">
-        <div className="flex items-center gap-1">
-          <Input
-            ref={inputRef}
-            value={image.edited}
-            readOnly
-            className="h-7 grow py-4 text-zinc-900"
-          />
-          <Popover>
-            <PopoverTrigger>
-              <Button size="sm" variant="outline">
-                <Scan size={20} className="text-zinc-900" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <QrCode
-                value={image.edited as string}
-                size={256}
-                style={{
-                  height: "auto",
-                  maxWidth: "100%",
-                  width: "100%",
-                  backgroundColor: "#f3f2f1",
-                }}
-                viewBox={`0 0 256 256`}
-              />
-            </PopoverContent>
-          </Popover>
-          <Button
-            size="sm"
-            variant="outline"
-            className={cn("transition-all", copied && "text-green-500")}
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <Check className="h-4 w-4 text-zinc-900" />
-            ) : (
-              <Copy className="h-4 w-4 text-zinc-900" />
-            )}
-          </Button>
-        </div>
-      </nav>
-      <div className="mx-auto w-full max-w-4xl px-4">
-        <Card className="mx-auto max-w-3xl shadow-lg">
-          <CardHeader className="text-center">
-            <H1 className="mb-4">Preview</H1>
-          </CardHeader>
-          <CardContent className="pt-0">
-            {hasImages ? (
-              <ImageComparison
-                className="aspect-[16/10] w-full rounded-lg border border-zinc-200 dark:border-zinc-800"
-                enableHover
-              >
-                <ImageComparisonImage
-                  src={image.edited as string}
-                  alt="Edited Image"
-                  position="left"
-                />
-                <ImageComparisonImage
-                  src={image.original as string}
-                  alt="Original Image"
-                  position="right"
-                />
-                <ImageComparisonSlider className="bg-white" />
-              </ImageComparison>
-            ) : (
-              <div className="flex flex-col items-center justify-center space-y-4">
-                <P className="text-muted-foreground">
-                  No images available for comparison. Please upload a banner to
-                  get started.
-                </P>
-                <Button variant="outline" className="group" asChild>
-                  <Link to="/">
-                    <span>Upload an Image</span>
-                  </Link>
+    <main className="container mx-auto max-w-4xl px-4 py-8">
+      <Card className="shadow-lg">
+        <CardHeader className="text-center">
+          <H1>Preview</H1>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="flex items-center gap-2">
+            <Input
+              ref={inputRef}
+              value={image.edited}
+              readOnly
+              className="text-sm text-zinc-900"
+            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button size="icon" variant="outline">
+                  <Scan className="h-4 w-4 text-zinc-900" />
                 </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-        <CardFooter className="flex items-center justify-center py-4">
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <QrCode
+                  value={image.edited as string}
+                  size={256}
+                  style={{
+                    height: "auto",
+                    maxWidth: "100%",
+                    width: "100%",
+                    backgroundColor: "#f3f2f1",
+                  }}
+                  viewBox={`0 0 256 256`}
+                />
+              </PopoverContent>
+            </Popover>
+            <Button
+              size="icon"
+              variant="outline"
+              className={cn("transition-all", copied && "text-green-500")}
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <Check className="h-4 w-4 text-zinc-900" />
+              ) : (
+                <Copy className="h-4 w-4 text-zinc-900" />
+              )}
+            </Button>
+          </div>
+
+          {hasImages ? (
+            <ImageComparison
+              className="aspect-[16/10] w-full rounded-lg border border-zinc-200 dark:border-zinc-800"
+              enableHover
+            >
+              <ImageComparisonImage
+                src={image.edited as string}
+                alt="Edited Image"
+                position="left"
+              />
+              <ImageComparisonImage
+                src={image.original as string}
+                alt="Original Image"
+                position="right"
+              />
+              <ImageComparisonSlider className="bg-white" />
+            </ImageComparison>
+          ) : (
+            <div className="flex flex-col items-center justify-center space-y-4 py-12">
+              <P className="text-center text-muted-foreground">
+                No images available for comparison. Please upload a banner to
+                get started.
+              </P>
+              <Button variant="outline" asChild>
+                <Link to="/">Upload an Image</Link>
+              </Button>
+            </div>
+          )}
+
+          {image.mask && (
+            <Card className="overflow-hidden">
+              <CardHeader>
+                <H1 className="text-lg">Mask Preview</H1>
+              </CardHeader>
+              <CardContent className="p-0">
+                <img
+                  src={image.mask as string}
+                  alt="Mask preview"
+                  className="h-auto w-full object-cover"
+                />
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+        <CardFooter className="flex justify-center pb-8 pt-6">
           <Button
             variant="outline"
-            className="group"
             asChild
             onClick={() => {
               localStorage.clear();
             }}
           >
-            <Link to="/">
-              <span>Try Another Image</span>
-            </Link>
+            <Link to="/">Try Another Image</Link>
           </Button>
         </CardFooter>
-      </div>
+      </Card>
     </main>
   );
 }

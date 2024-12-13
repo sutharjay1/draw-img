@@ -100,17 +100,32 @@ export const Edit = () => {
     }));
   };
 
-  const downloadImage = async (canvas: HTMLCanvasElement) => {
+  const downloadMask = async (dataUrl: string) => {
+    const file = new File([dataUrl], "mask.png", { type: "image/png" });
+    const response = await uploadToCloudinary(file);
+
+    if (response.secure_url) {
+      successToast("Mask downloaded successfully", {
+        position: "top-center",
+      });
+
+      return response.secure_url;
+    }
+  };
+
+  const downloadImage = async (canvas: HTMLCanvasElement, dataURI: string) => {
     try {
       const dataUrl = canvas.toDataURL("image/png", 1.0);
 
       const file = new File([dataUrl], "image.png", { type: "image/png" });
       const response = await uploadToCloudinary(file);
+      const maskedURL = await downloadMask(dataURI as string);
 
-      if (response.secure_url) {
+      if (response.secure_url && maskedURL) {
         setImage({
           original: image.original as string,
           edited: response.secure_url as string,
+          mask: maskedURL as string,
         });
 
         successToast("Image uploaded successfully", {
@@ -154,7 +169,7 @@ export const Edit = () => {
       img2.onload = () => {
         ctx.drawImage(img2, 0, 0, canvas.width, canvas.height);
 
-        downloadImage(canvas);
+        downloadImage(canvas, dataURI as string);
       };
 
       img2.src = dataURI as string;
